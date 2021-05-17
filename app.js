@@ -89,18 +89,22 @@ function clicks(event) {
     }}
 else {
     
-
+let btn=document.getElementById('btn');
    let ulelement =document.getElementById('results');
+   btn.addEventListener('click',result);
    let lielement;
-for (let i=0;i<arrayImg.length;i++){
-    lielement=document.createElement('li');
-    ulelement.appendChild(lielement);
-    lielement.textContent= `${arrayImg[i].imgName} has ${arrayImg[i].view} view and has ${arrayImg[i].click} clicks.`
+   function result() {
+    for (let i=0;i<arrayImg.length;i++){
+        lielement=document.createElement('li');
+        ulelement.appendChild(lielement);
+        lielement.textContent= `${arrayImg[i].imgName} has ${arrayImg[i].view} view and has ${arrayImg[i].click} clicks.`
+        
+       
+    }
+    chartRender();
+   }
 
-goatsClicks.push(arrayImg[i].click);
-goatsViews.push(arrayImg[i].view);
-}
-chartRender();
+
 leftimg.removeEventListener('click', clicks);
 rightimg.removeEventListener('click', clicks);
 centerimg.removeEventListener('click', clicks);
@@ -110,13 +114,17 @@ renderImg();
 
 }
 
-// for(let i=0;i<imgarray.length;i++){
-//     goatsClicks.push(arrayImg[i].click);
-//     goatsViews.push(arrayImg[i].view);
-// }
+
+//  for(let i=0;i<imgarray.length;i++){
+//      goatsClicks.push(arrayImg[i].click);
+//      goatsViews.push(arrayImg[i].view);
+//  }
 console.log(goatsViews);
 console.log(goatsClicks);
 function chartRender() {
+    for(let i=0;i<arrayImg.length;i++){
+    goatsClicks.push(arrayImg[i].click);
+     goatsViews.push(arrayImg[i].view);}
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
