@@ -21,6 +21,8 @@ function getImage (imgName){
     this.click=0;
     arrayImg.push(this);
     goatsImagesNames.push(this.goatName);
+    //getImage.arrayImg.push(this);
+    settingItems();
 
 }
 let imgarray=['/bag.jpg','/banana.jpg','/bathroom.jpg','/boots.jpg','/breakfast.jpg','/bubblegum.jpg','/chair.jpg','/cthulhu.jpg','/dog-duck.jpg','/dragon.jpg','/pen.jpg','/pet-sweep.jpg','/scissors.jpg','/shark.jpg','/sweep.png','/tauntaun.jpg','/unicorn.jpg','/water-can.jpg','/wine-glass.jpg'];
@@ -29,22 +31,45 @@ for (let i = 0; i < imgarray.length; i++) {
     new getImage(imgarray[i]);
 }
 
+function settingItems() {
+    let data = JSON.stringify(getImage.arrayImg);
+    console.log(data)
+    localStorage.setItem('coffee', data);
+}
+function gettingItems() {
+    let stringObj = localStorage.getItem('coffee');
+    
+    let normalObj = JSON.parse(stringObj);
 
+    if (normalObj !== null) {
+        getImage.arrayImg = normalObj;
+    }
+    renderImg();
+}
 
 
 function myimg (){
     return Math.floor(Math.random() * arrayImg.length);
 }
 
+let perviousarray=[];
 
-
-
+function addKey(key,value){
+    debugger
+    localStorage.setItem(key,JSON.stringify(value));
+}
+function getKey(key){
+    
+ return   localStorage.getItem(key);
+}
 function renderImg() {
     lindex = myimg();
     rindex=myimg();
     cindex=myimg();
-    while (lindex === rindex === cindex){
+    while (lindex === rindex || lindex === cindex || rindex === cindex){
     lindex=myimg();
+    rindex=myimg();
+    
     }
     console.log(lindex);
     leftimg.setAttribute('src', arrayImg[lindex].sourse);
@@ -95,12 +120,15 @@ let btn=document.getElementById('btn');
    let lielement;
    function result() {
     for (let i=0;i<arrayImg.length;i++){
+        
         lielement=document.createElement('li');
         ulelement.appendChild(lielement);
         lielement.textContent= `${arrayImg[i].imgName} has ${arrayImg[i].view} view and has ${arrayImg[i].click} clicks.`
-        
        
     }
+    addKey("products",arrayImg)
+    alert(getKey("products"))
+
     chartRender();
    }
 
