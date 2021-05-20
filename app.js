@@ -62,7 +62,7 @@ let  randomNumber ;
 
 
 function addKey(key, value) {
-    debugger
+    
     localStorage.setItem(key, JSON.stringify(value));
 }
 function getKey(key) {
